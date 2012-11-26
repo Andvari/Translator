@@ -14,7 +14,11 @@ import re
 import pynotify
 
 cb = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)
-term = cb.wait_for_text()
+term = cb.wait_for_text().encode('utf-8')
+
+term = term.replace("\n", "")
+term = term.lstrip()
+term = term.strip()
 
 term_to_google = term.replace(" ", "%20")
 
