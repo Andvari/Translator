@@ -7,7 +7,6 @@ Created on Nov 26, 2012
 @author: nemo
 '''
 
-import os
 import gtk
 import httplib
 import re
@@ -16,10 +15,7 @@ import pynotify
 cb = gtk.clipboard_get(gtk.gdk.SELECTION_CLIPBOARD)
 term = cb.wait_for_text().encode('utf-8')
 
-term = term.replace("\n", "")
-term = term.lstrip()
-term = term.strip()
-
+term = term.replace("\n", "").lstrip().strip()
 term_to_google = term.replace(" ", "%20")
 
 conn = httplib.HTTPConnection("translate.google.com")
@@ -32,5 +28,3 @@ terms = re.compile('"(.*?)"').findall(data)
 pynotify.init("Null")
 n = pynotify.Notification (term, terms[0], "Null")
 n.show()
-
-os._exit(True)
